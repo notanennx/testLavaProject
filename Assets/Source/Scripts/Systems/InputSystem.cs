@@ -7,14 +7,14 @@ public class InputSystem : MonoBehaviour
 {
     // Hidden
     private Camera mainCamera;
-    private InputEvent inputEventSignal;
+    private InputMoveEvent inputMoveEvent;
 
     // Awaking
     private void Awake()
     {
         // Get
         mainCamera = Camera.main;
-        inputEventSignal = Signals.Get<InputEvent>();
+        inputMoveEvent = Signals.Get<InputMoveEvent>();
     }
 
     // Update
@@ -26,6 +26,9 @@ public class InputSystem : MonoBehaviour
     // Handles input
     private void ProcessInput()
     {
+        // Exit
+        if (GameSystem.IsMenuOpen) return;
+
         // Clicked
         if (Input.GetMouseButtonDown(0))
         {
@@ -34,11 +37,18 @@ public class InputSystem : MonoBehaviour
             Ray rayCast = mainCamera.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(rayCast, out rayHit))
             {
-                // Get
+                // Planting
                 Transform objectHit = rayHit.transform;
-
-                // Dispatch
-                inputEventSignal.Dispatch(rayHit.point);
+                if (objectHit.TryGetComponent(out IClickable clickableComponent))
+                {
+                    clickableComponent.OnClicked();
+                }
+                // Moving it
+                else
+                {
+                    // Dispatch
+                    inputMoveEvent.Dispatch(rayHit.point);
+                }
             }
         }
     }

@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ExpReward: 10
   GrowthTime: 20
+  SpriteIcon: {fileID: 21300000, guid: 8e7f9e6cd5e750f4aa439d7830a59798, type: 3}
   SproutStagePrefab: {fileID: 3340353084645939126, guid: 1fbdbf2594323724d812d361925f2a52, type: 3}
   GrownUpStagePrefab: {fileID: 3340353084645939126, guid: 3132e6aa4b2990647a12cfd1147537b2, type: 3}

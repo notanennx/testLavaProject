@@ -7,7 +7,7 @@ using Supyrb;
 public class MoveSystem : MonoBehaviour
 {
     // Hidden
-    private InputEvent inputEventSignal;
+    private InputMoveEvent inputMoveEvent;
     private MoveComponent moveComponent;
 
     // Awaking
@@ -15,10 +15,10 @@ public class MoveSystem : MonoBehaviour
     {
         // Get
         moveComponent = GameObject.FindObjectOfType<MoveComponent>();
-        inputEventSignal = Signals.Get<InputEvent>();
+        inputMoveEvent = Signals.Get<InputMoveEvent>();
 
         // Subscribe
-        inputEventSignal.AddListener(ProcessInput);
+        inputMoveEvent.AddListener(ProcessInput);
     }
 
     // Updating
@@ -31,7 +31,7 @@ public class MoveSystem : MonoBehaviour
     // Destroy
     private void OnDestroy()
     {
-        inputEventSignal.RemoveListener(ProcessInput);
+        inputMoveEvent.RemoveListener(ProcessInput);
     }
 
     // Processes input

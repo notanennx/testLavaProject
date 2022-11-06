@@ -27,6 +27,7 @@ public class PlantingSystem : MonoBehaviour
     private PlantEvent plantEvent;
     private MoveEventBusy moveEventBusy;
     private PlantMenuEvent plantMenuEvent;
+    private OnPlantCreated onPlantCreated;
     private DestinationReachedEvent destinationReachedEvent;
 
     // Awaking
@@ -40,6 +41,7 @@ public class PlantingSystem : MonoBehaviour
         plantEvent = Signals.Get<PlantEvent>();
         moveEventBusy = Signals.Get<MoveEventBusy>();
         plantMenuEvent = Signals.Get<PlantMenuEvent>();
+        onPlantCreated = Signals.Get<OnPlantCreated>();
         destinationReachedEvent = Signals.Get<DestinationReachedEvent>();
 
         // Subscribe
@@ -60,14 +62,14 @@ public class PlantingSystem : MonoBehaviour
     private void Update()
     {
         // Exit
-        if ((eventSystem.IsPointerOverGameObject(0)) || (eventSystem.IsPointerOverGameObject(-1))) return;
+        //if ((eventSystem.IsPointerOverGameObject(0)) || (eventSystem.IsPointerOverGameObject(-1))) return;
 
         // Exit
-        if (Input.GetMouseButtonDown(0))
-        {
-            GameSystem.IsMenuOpen = false;
-            HidePlantingMenu();
-        }
+        //if ((Input.GetMouseButtonDown(0)) && (GameSystem.IsMenuOpen))
+        //{
+        //    GameSystem.IsMenuOpen = false;
+        //    HidePlantingMenu();
+        //}
     }
 
     // Handles clicks on tile
@@ -75,6 +77,8 @@ public class PlantingSystem : MonoBehaviour
     {
         // Set
         tileComponent = inputTile;
+
+        Debug.Log("Clicked");
 
         // Menu
         ShowPlantingMenu();
@@ -107,7 +111,11 @@ public class PlantingSystem : MonoBehaviour
         tileComponent.SetOccupied(true);
 
         // Create
-        Transform newPlant = Instantiate(plantToPlace.SproutStagePrefab, tileComponent.transform).transform;
+        PlantComponent newPlant = Instantiate(plantToPlace.PlantPrefab, tileComponent.transform).GetComponent<PlantComponent>();
+            newPlant.SetScriptablePlant(plantToPlace);
+
+            // Dispatch
+            onPlantCreated.Dispatch(newPlant);
 
         // Resetting
         plantToPlace = null;

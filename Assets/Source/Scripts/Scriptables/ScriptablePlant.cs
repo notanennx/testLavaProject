@@ -10,6 +10,5 @@ public class ScriptablePlant : ScriptableObject
     [BoxGroup("Main")] public int ExpReward;
     [BoxGroup("Main")] public float GrowthTime;
     [BoxGroup("Main")] public Sprite SpriteIcon;
-    [BoxGroup("Main")] public GameObject SproutStagePrefab;
-    [BoxGroup("Main")] public GameObject GrownUpStagePrefab;
+    [BoxGroup("Main")] public GameObject PlantPrefab;
 }

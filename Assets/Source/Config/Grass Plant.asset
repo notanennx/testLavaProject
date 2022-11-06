@@ -15,5 +15,4 @@ MonoBehaviour:
   ExpReward: 1
   GrowthTime: 5
   SpriteIcon: {fileID: 21300000, guid: edca8d9786e240a488f628bb4ec5d899, type: 3}
-  SproutStagePrefab: {fileID: 3340353084645939126, guid: 7b611be114198b841bedce10334a29ab, type: 3}
-  GrownUpStagePrefab: {fileID: 3340353084645939126, guid: 209d5274d60724243afced92a7f479ca, type: 3}
+  PlantPrefab: {fileID: 3340353084645939126, guid: 7b611be114198b841bedce10334a29ab, type: 3}

@@ -22,6 +22,7 @@ public class PlantingSystem : MonoBehaviour
     private EventSystem eventSystem;
     private TileComponent tileComponent;
     private MoveComponent moveComponent;
+    private PlantComponent plantComponent;
     private ScriptablePlant plantToPlace;
 
     // Events
@@ -29,6 +30,7 @@ public class PlantingSystem : MonoBehaviour
     private MoveEventBusy moveEventBusy;
     private PlantMenuEvent plantMenuEvent;
     private OnPlantCreated onPlantCreated;
+    private OnPlantHarvest onPlantHarvest;
     private DestinationReachedEvent destinationReachedEvent;
 
     // Awaking
@@ -43,6 +45,7 @@ public class PlantingSystem : MonoBehaviour
         moveEventBusy = Signals.Get<MoveEventBusy>();
         plantMenuEvent = Signals.Get<PlantMenuEvent>();
         onPlantCreated = Signals.Get<OnPlantCreated>();
+        onPlantHarvest = Signals.Get<OnPlantHarvest>();
         destinationReachedEvent = Signals.Get<DestinationReachedEvent>();
 
         // Subscribe
@@ -98,11 +101,23 @@ public class PlantingSystem : MonoBehaviour
             // It's grown
             if (tilePlant.IsGrown())
             {
-                // Go
+                // Set
+                plantComponent = tilePlant;
+
+                // Move
                 moveEventBusy.Dispatch(tileComponent.transform.position);
-                //destinationReachedEvent.AddListener(PerformPlanting);
+                destinationReachedEvent.AddListener(PerformHarvesting);
             }
         }
+    }
+
+    // Performs harvesting but not here
+    private void PerformHarvesting()
+    {
+        onPlantHarvest.Dispatch(plantComponent);
+
+        // Unsubscribe
+        destinationReachedEvent.RemoveListener(PerformHarvesting);
     }
 
     // Handles clicks on plant

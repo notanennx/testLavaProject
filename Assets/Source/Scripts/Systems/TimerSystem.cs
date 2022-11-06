@@ -70,6 +70,9 @@ public class TimerSystem : MonoBehaviour
         // Get
         TimerLabelUI plantTimer = plantTimerDictionary[inputPlant];
 
+        // Set
+        inputPlant.SetHarvestable(true);
+
         // Remove
         plantTimerDictionary.Remove(inputPlant);
 

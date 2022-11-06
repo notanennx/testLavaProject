@@ -20,6 +20,7 @@ public class PlantComponent : MonoBehaviour
 
     // Hidden
     private bool isGrown;
+    private bool isHarvestable;
     private float time;
     private Vector3 grownupScale;
     private ScriptablePlant scriptablePlant;
@@ -29,12 +30,17 @@ public class PlantComponent : MonoBehaviour
 
     // Getters
     public bool IsGrown() => isGrown;
+    public bool IsHarvestable() => isHarvestable;
     public float GetFillAmount() => (time/scriptablePlant.GrowthTime);
     public Transform GetSproutTransform() => sproutTransform;
     public Transform GetGrownupTransform() => grownupTransform;
 
     public Transform GetTimerPoint() => timerPoint;
+    public HarvestableBase GetHarvestScript() => harvestableBase;
     public ScriptablePlant GetScriptablePlant() => scriptablePlant;
+
+    // Setters
+    public void SetHarvestable(bool inputBool) => isHarvestable = inputBool;
 
     // Awaking
     private void Awake()
@@ -63,6 +69,15 @@ public class PlantComponent : MonoBehaviour
         // Set
         time = 0;
         scriptablePlant = inputPlant;
+    }
+
+    // Removes itself
+    public void Remove()
+    {
+        transform.DOKill();
+        transform.DOScale(Vector3.zero, 0.2f).SetEase(Ease.InBack).OnComplete(() => {
+            Destroy(gameObject);
+        });
     }
 
     // Becomes a grown up plant

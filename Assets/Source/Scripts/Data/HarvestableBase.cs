@@ -8,7 +8,7 @@ using NaughtyAttributes;
 public class HarvestableBase
 {
     // Harvest
-    public virtual void OnHarvestComplete()
+    public virtual void OnHarvestComplete(PlayerComponent inputPlayer, PlantComponent inputPlant)
     {
 
     }

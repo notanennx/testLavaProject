@@ -8,7 +8,7 @@ using NaughtyAttributes;
 public class HarvestableTree : HarvestableBase
 {
     // Harvest
-    public override void OnHarvestComplete()
+    public override void OnHarvestComplete(PlayerComponent inputPlayer, PlantComponent inputPlant)
     {
         Debug.Log("Can't harvest the tree!");
     }

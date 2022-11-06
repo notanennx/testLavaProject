@@ -20,7 +20,7 @@ public class CarrotsSystem : MonoBehaviour
     [SerializeField, BoxGroup("Carrots")] private RectTransform carrotHolderTransform;
 
     // Events
-    //private OnPlantGrown onPlantGrown;
+    private CreateCarrotsEvent createCarrotsEvent;
 
     // Hidden
     private int amount;
@@ -34,25 +34,24 @@ public class CarrotsSystem : MonoBehaviour
         mainCamera = Camera.main;
 
         // Events
-        //onPlantGrown = Signals.Get<OnPlantGrown>();
+        createCarrotsEvent = Signals.Get<CreateCarrotsEvent>();
 
         // Subscribe
-        //onPlantGrown.AddListener(OnPlantGrown);
+        createCarrotsEvent.AddListener(CreateCarrots);
     }
 
     // Destroy
     private void OnDestroy()
     {
         // Unsubscribe
-        //onPlantGrown.RemoveListener(OnPlantGrown);
+        createCarrotsEvent.RemoveListener(CreateCarrots);
     }
 
-    [Button]
-    private void CreateCarrots()
+    // Creates carrots
+    private void CreateCarrots(int inputAmount, Vector3 inputPosition)
     {
-        MoveComponent moveComponent = GameObject.FindObjectOfType<MoveComponent>();
-
-        AddCarrots(Random.Range(6, 9), moveComponent.transform.position);
+        // Spawn
+        AddCarrots(Random.Range(6, 9), inputPosition);
     }
 
     // Adds carrots!

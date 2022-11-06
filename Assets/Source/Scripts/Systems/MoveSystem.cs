@@ -21,6 +21,13 @@ public class MoveSystem : MonoBehaviour
         inputEventSignal.AddListener(ProcessInput);
     }
 
+    // Updating
+    private void Update()
+    {
+        // Animation
+        moveComponent.GetAnimator().SetBool("IsMoving", moveComponent.GetNavMeshAgent().hasPath);
+    }
+
     // Destroy
     private void OnDestroy()
     {

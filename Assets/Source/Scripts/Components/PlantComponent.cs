@@ -26,6 +26,8 @@ public class PlantComponent : MonoBehaviour
 
     // Getters
     public float GetFillAmount() => (time/scriptablePlant.GrowthTime);
+    public Transform GetSproutTransform() => sproutTransform;
+    public Transform GetGrownupTransform() => grownupTransform;
 
     public Transform GetTimerPoint() => timerPoint;
     public ScriptablePlant GetScriptablePlant() => scriptablePlant;
@@ -43,12 +45,12 @@ public class PlantComponent : MonoBehaviour
     // Adds growth time
     public void AddGrowthTime()
     {
-        // Add
-        time = Mathf.Min(time + 1, scriptablePlant.GrowthTime);
-
         // Grow
         if (time >= scriptablePlant.GrowthTime)
             BecomeGrownup();
+
+        // Addup
+        time = Mathf.Min(time + 1, scriptablePlant.GrowthTime);
     }
 
     // Sets a scriptable plant

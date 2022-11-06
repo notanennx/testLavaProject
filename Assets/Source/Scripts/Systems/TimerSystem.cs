@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Supyrb;
 using DG.Tweening;
 using NaughtyAttributes;
@@ -93,14 +94,9 @@ public class TimerSystem : MonoBehaviour
     // Updates our timers
     private void UpdateTimers()
     {
-        // Loop
+        // Loop and add growth
         foreach (KeyValuePair<PlantComponent, TimerLabelUI> plantTimer in plantTimerDictionary.ToList())
-        {
-            // Adds time and updates timer
             plantTimer.Key.AddGrowthTime();
-            plantTimer.Value.GetFiller().DOKill();
-            plantTimer.Value.GetFiller().DOFillAmount(plantTimer.Key.GetFillAmount(), 1.0f).SetEase(Ease.Linear);
-        }
     }
 
     // Updates timer positions
@@ -114,6 +110,7 @@ public class TimerSystem : MonoBehaviour
 
             // Move
             plantTimer.Value.transform.position = Vector2.Lerp(plantTimer.Value.transform.position, targetPosition, (64f * Time.deltaTime));
+            plantTimer.Value.GetFiller().fillAmount = Mathf.Lerp(plantTimer.Value.GetFiller().fillAmount, plantTimer.Key.GetFillAmount(), (4f * Time.deltaTime));
         }
     }
 }

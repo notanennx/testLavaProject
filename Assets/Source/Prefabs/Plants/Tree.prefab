@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3340353084645939125}
-  - component: {fileID: 1716356160111472096}
   - component: {fileID: -6164173657737642910}
   m_Layer: 0
   m_Name: Tree
@@ -35,19 +34,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &1716356160111472096
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3340353084645939126}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2, y: 0.11, z: 2}
-  m_Center: {x: 0, y: 0.105000004, z: 0}
 --- !u!114 &-6164173657737642910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,7 +49,13 @@ MonoBehaviour:
   timerPoint: {fileID: 6910833723064687218}
   sproutTransform: {fileID: 6594020713112227106}
   grownupTransform: {fileID: 2135397769703440858}
+  harvestableBase:
+    id: 0
   doSpineGrowth: 1
+  references:
+    version: 1
+    00000000:
+      type: {class: HarvestableTree, ns: , asm: Assembly-CSharp}
 --- !u!1 &4770865961033171028
 GameObject:
   m_ObjectHideFlags: 0

@@ -79,12 +79,30 @@ public class PlantingSystem : MonoBehaviour
         // Set
         tileComponent = inputTile;
 
-        // Menu
-        ShowPlantingMenu();
+        // Empty
+        if (!tileComponent.IsOccupied())
+        {
+            // Menu
+            ShowPlantingMenu();
 
-        // Camera
-        virtualCamera.m_Follow = tileComponent.transform;
-        virtualCamera.m_Priority = 100;
+            // Camera
+            virtualCamera.m_Follow = tileComponent.transform;
+            virtualCamera.m_Priority = 100;
+        }
+        // Non empty
+        else
+        {
+            // Get
+            PlantComponent tilePlant = tileComponent.GetPlant();
+
+            // It's grown
+            if (tilePlant.IsGrown())
+            {
+                // Go
+                moveEventBusy.Dispatch(tileComponent.transform.position);
+                //destinationReachedEvent.AddListener(PerformPlanting);
+            }
+        }
     }
 
     // Handles clicks on plant
@@ -106,8 +124,6 @@ public class PlantingSystem : MonoBehaviour
     {
         // Animate char, plant something
 
-        // Set
-        tileComponent.SetOccupied(true);
 
         // Create
         PlantComponent newPlant = Instantiate(plantToPlace.PlantPrefab, tileComponent.transform).GetComponent<PlantComponent>();
@@ -122,9 +138,13 @@ public class PlantingSystem : MonoBehaviour
                 newPlant.GetSproutTransform().DOPunchScale(0.1f * Vector3.one, 0.6f, 6, 1);
             });
 
+            // Assign
+            tileComponent.SetPlant(newPlant);
+
             // Dispatch
             onPlantCreated.Dispatch(newPlant);
 
+        
         // Resetting
         plantToPlace = null;
         tileComponent = null;

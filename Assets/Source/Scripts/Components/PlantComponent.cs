@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,8 @@ public class PlantComponent : MonoBehaviour
     [SerializeField, BoxGroup("Main")] private Transform sproutTransform;
     [SerializeField, BoxGroup("Main")] private Transform grownupTransform;
 
+    [SerializeReference, SubclassSelector, BoxGroup("Scripts")] private HarvestableBase harvestableBase;
+
     [SerializeField, BoxGroup("Effects")] private bool doSpineGrowth;
 
     // Hidden
@@ -25,6 +28,7 @@ public class PlantComponent : MonoBehaviour
     private OnPlantGrown onPlantGrown;
 
     // Getters
+    public bool IsGrown() => isGrown;
     public float GetFillAmount() => (time/scriptablePlant.GrowthTime);
     public Transform GetSproutTransform() => sproutTransform;
     public Transform GetGrownupTransform() => grownupTransform;

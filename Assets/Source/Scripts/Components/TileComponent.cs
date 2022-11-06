@@ -9,10 +9,15 @@ public class TileComponent : MonoBehaviour, IClickable
 {
     // Hidden
     private bool isOccupied;
+    private PlantComponent plant;
     private PlantMenuEvent plantMenuEvent;
 
+    // Getters
+    public bool IsOccupied() => (plant);
+    public PlantComponent GetPlant() => plant;
+
     // Setters
-    public void SetOccupied(bool inputBool) => isOccupied = inputBool;
+    public void SetPlant(PlantComponent inputPlant) => plant = inputPlant;
 
     // Awaking
     private void Awake()

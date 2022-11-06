@@ -86,6 +86,8 @@ public class TimerSystem : MonoBehaviour
         // Create
         TimerLabelUI newTimer = Instantiate(timerLabelPrefab, timersHolderTransform).GetComponent<TimerLabelUI>();
             newTimer.GetFiller().fillAmount = 0;
+            newTimer.transform.localScale = Vector3.zero;
+            newTimer.transform.DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBack);
 
         // Assign
         plantTimerDictionary.Add(inputPlant, newTimer);

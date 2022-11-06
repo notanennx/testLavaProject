@@ -53,7 +53,7 @@ public class MoveSystem : MonoBehaviour
         {
             isBusy = false;
             isMoving = false;
-            Debug.Log("Completed");
+            destinationReachedEvent.Dispatch();
         }
     }
 
@@ -65,6 +65,9 @@ public class MoveSystem : MonoBehaviour
 
         // Move
         isMoving = true;
+
+        // Pathing
+        navMeshAgent.ResetPath();
         navMeshAgent.SetDestination(inputPosition);
     }
 
@@ -74,12 +77,12 @@ public class MoveSystem : MonoBehaviour
         // Move
         isBusy = true;
         isMoving = true;
-        navMeshAgent.SetDestination(inputPosition);
 
-        // Debugging
-        Debug.Log("Busy input!");
+        // Pathing
+        navMeshAgent.ResetPath();
+        navMeshAgent.SetDestination(inputPosition);
     }
 
     // Returns if path completed or not
-    private bool IsCompletedPath() => ((navMeshAgent.remainingDistance != Mathf.Infinity) && (navMeshAgent.pathStatus == NavMeshPathStatus.PathComplete) && (navMeshAgent.remainingDistance == 0));
+    private bool IsCompletedPath() => ((!navMeshAgent.pathPending) && (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance) && ((!navMeshAgent.hasPath || navMeshAgent.velocity.sqrMagnitude == 0f)));
 }

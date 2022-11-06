@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
 using Supyrb;
 using Cinemachine;
 using NaughtyAttributes;
@@ -17,6 +18,7 @@ public class PlantingSystem : MonoBehaviour
     [SerializeField, BoxGroup("User Interface")] private RectTransform plantingMenuTransform;
 
     // Hidden
+    private EventSystem eventSystem;
     private TileComponent tileComponent;
     private MoveComponent moveComponent;
     private ScriptablePlant plantToPlace;
@@ -31,6 +33,7 @@ public class PlantingSystem : MonoBehaviour
     private void Awake()
     {
         // Get
+        eventSystem = GameObject.FindObjectOfType<EventSystem>();
         moveComponent = GameObject.FindObjectOfType<MoveComponent>();
 
         // Events
@@ -51,6 +54,20 @@ public class PlantingSystem : MonoBehaviour
         plantEvent.RemoveListener(OnItemClicked);
         plantMenuEvent.RemoveListener(OnTileClicked);
         destinationReachedEvent.RemoveListener(PerformPlanting);
+    }
+
+    // Updating
+    private void Update()
+    {
+        // Exit
+        if ((eventSystem.IsPointerOverGameObject(0)) || (eventSystem.IsPointerOverGameObject(-1))) return;
+
+        // Exit
+        if (Input.GetMouseButtonDown(0))
+        {
+            GameSystem.IsMenuOpen = false;
+            HidePlantingMenu();
+        }
     }
 
     // Handles clicks on tile
@@ -79,13 +96,6 @@ public class PlantingSystem : MonoBehaviour
 
         // Menu
         HidePlantingMenu();
-
-        // Reset
-        plantToPlace = null;
-        tileComponent = null;
-
-        // Camera
-        virtualCamera.m_Priority = 0;
     }
 
     // Performs planting
@@ -93,11 +103,15 @@ public class PlantingSystem : MonoBehaviour
     {
         // Animate char, plant something
 
-        // Debug
-        Debug.Log("Planted!");
+        // Set
+        tileComponent.SetOccupied(true);
 
         // Create
         Transform newPlant = Instantiate(plantToPlace.SproutStagePrefab, tileComponent.transform).transform;
+
+        // Resetting
+        plantToPlace = null;
+        tileComponent = null;
 
         // Unsubscribe
         destinationReachedEvent.RemoveListener(PerformPlanting);
@@ -120,6 +134,9 @@ public class PlantingSystem : MonoBehaviour
         // Set
         GameSystem.IsMenuOpen = false;
         plantingMenuTransform.gameObject.SetActive(false);
+
+        // Camera
+        virtualCamera.m_Priority = 0;
     }
 
     // Cleans planting items contents

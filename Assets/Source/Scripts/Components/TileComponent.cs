@@ -7,11 +7,12 @@ using NaughtyAttributes;
 
 public class TileComponent : MonoBehaviour, IClickable
 {
-    // Vars
-    [SerializeField, BoxGroup("Main")] private GameObject plantToSpawn;
-
     // Hidden
+    private bool isOccupied;
     private PlantMenuEvent plantMenuEvent;
+
+    // Setters
+    public void SetOccupied(bool inputBool) => isOccupied = inputBool;
 
     // Awaking
     private void Awake()
@@ -20,19 +21,12 @@ public class TileComponent : MonoBehaviour, IClickable
         plantMenuEvent = Signals.Get<PlantMenuEvent>();
     }
 
-    [Button]
-    private void SpawnPlant()
-    {
-        // Exit
-        if (!plantToSpawn) return;
-
-        // Create
-        Transform newPlant = Instantiate(plantToSpawn, transform).transform;
-    }
-
     // Clicked
     public void OnClicked()
     {
+        // Exit
+        if (isOccupied) return;
+
         // Dispatch
         plantMenuEvent.Dispatch(this);
     }

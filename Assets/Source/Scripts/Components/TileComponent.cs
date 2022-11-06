@@ -5,7 +5,7 @@ using UnityEngine.AI;
 using Supyrb;
 using NaughtyAttributes;
 
-public class PlanterComponent : MonoBehaviour, IClickable
+public class TileComponent : MonoBehaviour, IClickable
 {
     // Vars
     [SerializeField, BoxGroup("Main")] private GameObject plantToSpawn;

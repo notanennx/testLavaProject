@@ -7,14 +7,18 @@ public class InputSystem : MonoBehaviour
 {
     // Hidden
     private Camera mainCamera;
-    private InputMoveEvent inputMoveEvent;
+
+    // Events
+    private MoveEvent moveEvent;
 
     // Awaking
     private void Awake()
     {
         // Get
         mainCamera = Camera.main;
-        inputMoveEvent = Signals.Get<InputMoveEvent>();
+
+        // Events
+        moveEvent = Signals.Get<MoveEvent>();
     }
 
     // Update
@@ -47,7 +51,7 @@ public class InputSystem : MonoBehaviour
                 else
                 {
                     // Dispatch
-                    inputMoveEvent.Dispatch(rayHit.point);
+                    moveEvent.Dispatch(rayHit.point);
                 }
             }
         }

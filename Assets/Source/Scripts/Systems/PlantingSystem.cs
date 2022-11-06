@@ -16,16 +16,28 @@ public class PlantingSystem : MonoBehaviour
     [SerializeField, BoxGroup("User Interface")] private RectTransform plantingMenuContent;
     [SerializeField, BoxGroup("User Interface")] private RectTransform plantingMenuTransform;
 
+    // Hidden
+    private TileComponent tileComponent;
+    private MoveComponent moveComponent;
+    private ScriptablePlant plantToPlace;
+
     // Events
     private PlantEvent plantEvent;
+    private MoveEventBusy moveEventBusy;
     private PlantMenuEvent plantMenuEvent;
+    private DestinationReachedEvent destinationReachedEvent;
 
     // Awaking
     private void Awake()
     {
         // Get
+        moveComponent = GameObject.FindObjectOfType<MoveComponent>();
+
+        // Events
         plantEvent = Signals.Get<PlantEvent>();
+        moveEventBusy = Signals.Get<MoveEventBusy>();
         plantMenuEvent = Signals.Get<PlantMenuEvent>();
+        destinationReachedEvent = Signals.Get<DestinationReachedEvent>();
 
         // Subscribe
         plantEvent.AddListener(OnItemClicked);
@@ -35,29 +47,60 @@ public class PlantingSystem : MonoBehaviour
     // Destroy
     private void OnDestroy()
     {
+        // Unsubscribe
         plantEvent.RemoveListener(OnItemClicked);
         plantMenuEvent.RemoveListener(OnTileClicked);
+        destinationReachedEvent.RemoveListener(PerformPlanting);
     }
 
     // Handles clicks on tile
-    private void OnTileClicked(PlanterComponent inputPlanter)
+    private void OnTileClicked(TileComponent inputTile)
     {
         // Set
-        virtualCamera.m_Follow = inputPlanter.transform;
-        virtualCamera.m_Priority = 100;
+        tileComponent = inputTile;
 
         // Menu
         ShowPlantingMenu();
+
+        // Camera
+        virtualCamera.m_Follow = tileComponent.transform;
+        virtualCamera.m_Priority = 100;
     }
 
     // Handles clicks on plant
     private void OnItemClicked(PlantingItemUI inputPlantItem)
     {
         // Set
-        virtualCamera.m_Priority = 0;
+        plantToPlace = inputPlantItem.GetPlant();
+
+        // Makes char go planting
+        moveEventBusy.Dispatch(tileComponent.transform.position);
+        destinationReachedEvent.AddListener(PerformPlanting);
 
         // Menu
         HidePlantingMenu();
+
+        // Reset
+        plantToPlace = null;
+        tileComponent = null;
+
+        // Camera
+        virtualCamera.m_Priority = 0;
+    }
+
+    // Performs planting
+    private void PerformPlanting()
+    {
+        // Animate char, plant something
+
+        // Debug
+        Debug.Log("Planted!");
+
+        // Create
+        Transform newPlant = Instantiate(plantToPlace.SproutStagePrefab, tileComponent.transform).transform;
+
+        // Unsubscribe
+        destinationReachedEvent.RemoveListener(PerformPlanting);
     }
 
     // Opens a planting menu

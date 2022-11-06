@@ -17,10 +17,9 @@ public class PlantingItemUI : MonoBehaviour
 
     // Hidden
     private Button mainButton;
-    private PlanterComponent planterComponent;
-    
-    // Setters
-    public void SetPlanter(PlanterComponent inputPlanter) => planterComponent = inputPlanter;
+
+    // Getters
+    public ScriptablePlant GetPlant() => plantToUse;
 
     // Awaking
     private void Awake()
@@ -55,8 +54,5 @@ public class PlantingItemUI : MonoBehaviour
     {
         // Dispatch
         plantEvent.Dispatch(this);
-
-        // Debugging
-        Debug.Log("Plant button clicked!");
     }
 }

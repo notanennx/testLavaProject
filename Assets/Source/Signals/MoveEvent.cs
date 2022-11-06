@@ -3,4 +3,4 @@ using System.Collections.Generic;
 using UnityEngine;
 using Supyrb;
 
-public class InputMoveEvent : Signal<Vector3> {}
+public class MoveEvent : Signal<Vector3> {}

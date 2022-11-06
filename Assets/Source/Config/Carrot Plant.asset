@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52071f5f8c399754c9648ec94e248a38, type: 3}
   m_Name: Carrot Plant
   m_EditorClassIdentifier: 
-  ExpReward: 5
+  ExpReward: 50
   GrowthTime: 10
   SpriteIcon: {fileID: 21300000, guid: 7d31b168a7072c5479473b592ff813af, type: 3}
   PlantPrefab: {fileID: 3340353084645939126, guid: 9396ea2800039394bbf2efbc5a0b20f4, type: 3}

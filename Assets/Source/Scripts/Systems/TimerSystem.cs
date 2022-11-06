@@ -12,7 +12,7 @@ public class TimerSystem : MonoBehaviour
 {
     // Vars
     [SerializeField, BoxGroup("Main")] private GameObject timerLabelPrefab;
-    [SerializeField, BoxGroup("Main")] private RectTransform timersScreenTransform;
+    [SerializeField, BoxGroup("Main")] private RectTransform timersHolderTransform;
 
     // Events
     private OnPlantGrown onPlantGrown;
@@ -84,7 +84,7 @@ public class TimerSystem : MonoBehaviour
     private void OnPlantCreated(PlantComponent inputPlant)
     {
         // Create
-        TimerLabelUI newTimer = Instantiate(timerLabelPrefab, timersScreenTransform).GetComponent<TimerLabelUI>();
+        TimerLabelUI newTimer = Instantiate(timerLabelPrefab, timersHolderTransform).GetComponent<TimerLabelUI>();
             newTimer.GetFiller().fillAmount = 0;
 
         // Assign

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52071f5f8c399754c9648ec94e248a38, type: 3}
   m_Name: Grass Plant
   m_EditorClassIdentifier: 
-  ExpReward: 1
+  ExpReward: 10
   GrowthTime: 5
   SpriteIcon: {fileID: 21300000, guid: edca8d9786e240a488f628bb4ec5d899, type: 3}
   PlantPrefab: {fileID: 3340353084645939126, guid: 7b611be114198b841bedce10334a29ab, type: 3}

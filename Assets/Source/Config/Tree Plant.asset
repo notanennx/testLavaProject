@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52071f5f8c399754c9648ec94e248a38, type: 3}
   m_Name: Tree Plant
   m_EditorClassIdentifier: 
-  ExpReward: 10
+  ExpReward: 100
   GrowthTime: 20
   SpriteIcon: {fileID: 21300000, guid: 8e7f9e6cd5e750f4aa439d7830a59798, type: 3}
   PlantPrefab: {fileID: 3340353084645939126, guid: 1fbdbf2594323724d812d361925f2a52, type: 3}

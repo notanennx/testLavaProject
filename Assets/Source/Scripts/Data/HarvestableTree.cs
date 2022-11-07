@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using NaughtyAttributes;
+using DG.Tweening;
 
 [Serializable]
 public class HarvestableTree : HarvestableBase
@@ -12,5 +12,6 @@ public class HarvestableTree : HarvestableBase
     {
         // Anim
         inputPlayer.GetAnimator().SetTrigger("Shrug");
+        inputPlayer.transform.DOLookAt(inputPlant.transform.position, 0.2f, AxisConstraint.Y);
     }
 }

@@ -79,6 +79,9 @@ public class PlantingSystem : MonoBehaviour
     // Handles clicks on tile
     private void OnTileClicked(TileComponent inputTile)
     {
+        // Exit
+        if ((GameSystem.IsMenuOpen) || (GameSystem.IsMoving)) return;
+
         // Set
         tileComponent = inputTile;
 
@@ -109,6 +112,11 @@ public class PlantingSystem : MonoBehaviour
                 moveEventBusy.Dispatch(tileComponent.transform.position);
                 destinationReachedEvent.AddListener(PerformHarvesting);
             }
+            else
+            {
+                // Move
+                moveEventBusy.Dispatch(tileComponent.transform.position);
+            }
         }
     }
 
@@ -121,7 +129,7 @@ public class PlantingSystem : MonoBehaviour
         destinationReachedEvent.RemoveListener(PerformHarvesting);
     }
 
-    // Handles clicks on plant
+    // Handles clicks on plant button
     private void OnItemClicked(PlantingItemUI inputPlantItem)
     {
         // Set

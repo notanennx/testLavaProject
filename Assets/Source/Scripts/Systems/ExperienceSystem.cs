@@ -69,7 +69,7 @@ public class ExperienceSystem : MonoBehaviour
             newExpPopup.transform.position = inputPosition;
 
         // Tweening
-        newExpPopup.transform.DOLocalMove(newExpPopup.transform.localPosition + new Vector3(0, 128, 0), 1.2f).OnComplete(() => {
+        newExpPopup.transform.DOLocalMove(newExpPopup.transform.localPosition + new Vector3(0, 128, 0), 0.4f).OnComplete(() => {
             newExpPopup.transform.DOScale(Vector3.zero, 0.3f).SetEase(Ease.InBack).OnComplete(() => {
                 Destroy(newExpPopup.gameObject);
             });

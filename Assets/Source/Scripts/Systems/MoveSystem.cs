@@ -56,6 +56,7 @@ public class MoveSystem : MonoBehaviour
         {
             isBusy = false;
             isMoving = false;
+            GameSystem.IsMoving = false;
             destinationReachedEvent.Dispatch();
         }
     }
@@ -68,6 +69,7 @@ public class MoveSystem : MonoBehaviour
 
         // Move
         isMoving = true;
+        GameSystem.IsMoving = true;
 
         // Pathing
         navMeshAgent.stoppingDistance = 0;
@@ -81,6 +83,7 @@ public class MoveSystem : MonoBehaviour
         // Move
         isBusy = true;
         isMoving = true;
+        GameSystem.IsMoving = true;
 
         // Pathing
         navMeshAgent.ResetPath();

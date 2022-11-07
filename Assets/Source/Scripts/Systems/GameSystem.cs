@@ -6,5 +6,6 @@ using Supyrb;
 public class GameSystem : MonoBehaviour
 {
     // Vars
+    public static bool IsMoving;
     public static bool IsMenuOpen;
 }

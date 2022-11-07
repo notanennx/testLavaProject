@@ -149,7 +149,7 @@ public class PlantingSystem : MonoBehaviour
 
             // Effect
             newPlant.GetSproutTransform().localScale = Vector3.zero;
-            newPlant.GetSproutTransform().DOScale(sproutScale, 0.6f).SetEase(Ease.InBack).OnComplete(() => {
+            newPlant.GetSproutTransform().DOScale(sproutScale, 0.2f).SetEase(Ease.InBack).OnComplete(() => {
                 newPlant.GetSproutTransform().DOPunchScale(0.1f * Vector3.one, 0.6f, 6, 1);
             });
 

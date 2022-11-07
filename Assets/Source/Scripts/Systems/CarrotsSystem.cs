@@ -48,20 +48,24 @@ public class CarrotsSystem : MonoBehaviour
     }
 
     // Creates carrots
-    private void CreateCarrots(int inputAmount, Vector3 inputPosition)
+    private void CreateCarrots(int inputAmount)
     {
         // Spawn
-        AddCarrots(Random.Range(6, 9), inputPosition);
+        AddCarrots(inputAmount);
     }
 
     // Adds carrots!
-    private void AddCarrots(int inputAmount, Vector3 inputPosition)
+    private void AddCarrots(int inputAmount)
     {
-        // Get
-        Vector3 carrotPosition = mainCamera.WorldToScreenPoint(inputPosition);
-
         // Set
         amount += inputAmount;
+
+        // Update
+        UpdateLabel();
+
+        /*
+        // Get
+        Vector3 carrotPosition = mainCamera.WorldToScreenPoint(inputPosition);
 
         // Create multiple 2D carrots
         int carrotsLeft = Mathf.Min(inputAmount, 16);
@@ -90,6 +94,7 @@ public class CarrotsSystem : MonoBehaviour
                 });
             });
         }
+        */
     }
 
     // Updates carrots label
@@ -106,24 +111,4 @@ public class CarrotsSystem : MonoBehaviour
         labelTransform.DOPunchScale((0.1f * Vector3.one), 0.3f, 6, 1);
         labelTransform.DOShakePosition(0.6f, 16f, 10, 40, false, true);
     }
-
-    /*
-
-    // Rewards exp when plant is grown
-    private void OnPlantGrown(PlantComponent inputPlant)
-    {
-        // Get
-        int expRewardAmount = inputPlant.GetScriptablePlant().ExpReward;;
-        Vector3 plantPosition = mainCamera.WorldToScreenPoint(inputPlant.GetTimerPoint().position);
-
-        // Set
-        expAmount += expRewardAmount;
-
-        // Popup
-        AddExperiencePopup(expRewardAmount, mainCamera.WorldToScreenPoint(inputPlant.GetTimerPoint().position));
-
-        // Label
-        AddExperienceToLabel();
-    }
-    */
 }

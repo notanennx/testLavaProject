@@ -27,9 +27,6 @@ public class HarvestableGrass : HarvestableBase
         inputPlant.Remove();
         inputPlant.SetHarvestable(false);
 
-        // Debugging
-        Debug.Log("Harvested grass!");
-
         // Unsubscribe
         Signals.Get<OnAnimationComplete>().Clear();
     }

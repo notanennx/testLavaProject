@@ -103,6 +103,7 @@ public class PlantingSystem : MonoBehaviour
             {
                 // Set
                 plantComponent = tilePlant;
+                moveComponent.GetNavMeshAgent().stoppingDistance = plantComponent.GetScriptablePlant().HarvestDistance;
 
                 // Move
                 moveEventBusy.Dispatch(tileComponent.transform.position);
@@ -125,6 +126,7 @@ public class PlantingSystem : MonoBehaviour
     {
         // Set
         plantToPlace = inputPlantItem.GetPlant();
+        moveComponent.GetNavMeshAgent().stoppingDistance = 0;
 
         // Makes char go planting
         moveEventBusy.Dispatch(tileComponent.transform.position);

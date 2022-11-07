@@ -11,4 +11,6 @@ public class ScriptablePlant : ScriptableObject
     [BoxGroup("Main")] public float GrowthTime;
     [BoxGroup("Main")] public Sprite SpriteIcon;
     [BoxGroup("Main")] public GameObject PlantPrefab;
+
+    [BoxGroup("Details")] public float HarvestDistance;
 }

@@ -10,6 +10,7 @@ public class HarvestableTree : HarvestableBase
     // Harvest
     public override void OnHarvestComplete(PlayerComponent inputPlayer, PlantComponent inputPlant)
     {
-        Debug.Log("Can't harvest the tree!");
+        // Anim
+        inputPlayer.GetAnimator().SetTrigger("Shrug");
     }
 }

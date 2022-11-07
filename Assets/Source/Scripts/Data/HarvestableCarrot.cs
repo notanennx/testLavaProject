@@ -49,8 +49,8 @@ public class HarvestableCarrot : HarvestableBase
                 part.transform.DOLocalRotate(newAngle, 0.3f, RotateMode.LocalAxisAdd);
                 part.transform.DOLocalJump(Vector3.zero,  Random.Range(0.4f, 0.8f), 1, 0.3f, false).OnComplete(() => {
                     part.transform.DOScale(Vector3.zero, 0.15f).OnComplete(() => {
-
                         Signals.Get<CreateCarrotsEvent>().Dispatch(1);
+                        UnityEngine.Object.Destroy(part.gameObject);
                     });
                 });
             });

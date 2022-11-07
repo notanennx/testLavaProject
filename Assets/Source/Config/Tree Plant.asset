@@ -16,3 +16,4 @@ MonoBehaviour:
   GrowthTime: 20
   SpriteIcon: {fileID: 21300000, guid: 8e7f9e6cd5e750f4aa439d7830a59798, type: 3}
   PlantPrefab: {fileID: 3340353084645939126, guid: 1fbdbf2594323724d812d361925f2a52, type: 3}
+  HarvestDistance: 2

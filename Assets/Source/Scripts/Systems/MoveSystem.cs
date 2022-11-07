@@ -45,11 +45,14 @@ public class MoveSystem : MonoBehaviour
     // Updating
     private void Update()
     {
+        // Bool
+        bool isComplete = IsCompletedPath();
+
         // Animation
-        moveComponent.GetAnimator().SetBool("IsMoving", moveComponent.GetNavMeshAgent().hasPath);
+        moveComponent.GetAnimator().SetBool("IsMoving", !isComplete);
 
         // Destination
-        if ((IsCompletedPath()) && (isMoving))
+        if ((isComplete) && (isMoving))
         {
             isBusy = false;
             isMoving = false;
@@ -67,6 +70,7 @@ public class MoveSystem : MonoBehaviour
         isMoving = true;
 
         // Pathing
+        navMeshAgent.stoppingDistance = 0;
         navMeshAgent.ResetPath();
         navMeshAgent.SetDestination(inputPosition);
     }
